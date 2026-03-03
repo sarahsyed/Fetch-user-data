@@ -1,6 +1,7 @@
 //This is my target where my profile will appear
 const overview = document.querySelector(".overview");
 const username = "sarahsyed";
+const unorderedList = 0;
 
 const profile = async function(){
  const res = await fetch(`https://api.github.com/users/${username}`);
@@ -31,6 +32,12 @@ const userData = function(data){
     
 }
 
-    
+const fetchRepos = async function(){
+    const repoRes = await fetch(`https://api.github.com/users/${username}/repos?`);
+    const repoData = await repoRes.text();
+    console.log("List of repos " +repoData);
+}
+
+   fetchRepos();
 
     
