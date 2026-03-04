@@ -1,7 +1,7 @@
 //This is my target where my profile will appear
 const overview = document.querySelector(".overview");
 const username = "sarahsyed";
-const unorderedList = 0;
+const unorderedRepoList = document.querySelector(".repo-list");
 
 const profile = async function(){
  const res = await fetch(`https://api.github.com/users/${username}`);
@@ -28,16 +28,26 @@ const userData = function(data){
     
     </div> 
         `)
-     overview.append(div);   
+     overview.append(div);  
+     fetchRepos(); 
     
 }
 
 const fetchRepos = async function(){
-    const repoRes = await fetch(`https://api.github.com/users/${username}/repos?`);
-    const repoData = await repoRes.text();
-    console.log("List of repos " +repoData);
+    const repoRes = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100 `);
+    const reposData = await repoRes.json();
+    console.log("List of repos ", reposData);
+    displayRepo(reposData);
 }
 
-   fetchRepos();
+const displayRepo = function(repos){
+    for (var repo of repos){
+        const repoItem = document.createElement("li");
+        repoItem.classList.add("repo");
+        repoItem.innerHTML = `<h2>${repo.name}</h2>`;
+        console.log(repoItem.innerHTML = `<h2>${repo.name}</h2>`);
+        unorderedRepoList.append(repoItem);
 
+    }
+}
     
