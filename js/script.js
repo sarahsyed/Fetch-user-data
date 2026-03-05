@@ -2,6 +2,8 @@
 const overview = document.querySelector(".overview");
 const username = "sarahsyed";
 const unorderedRepoList = document.querySelector(".repo-list");
+const repos = document.querySelector(".repos");
+const repoData = document.querySelector(".repo-data");
 
 const profile = async function(){
  const res = await fetch(`https://api.github.com/users/${username}`);
@@ -45,9 +47,23 @@ const displayRepo = function(repos){
         const repoItem = document.createElement("li");
         repoItem.classList.add("repo");
         repoItem.innerHTML = `<h2>${repo.name}</h2>`;
-        console.log(repoItem.innerHTML = `<h2>${repo.name}</h2>`);
+        //console.log(repoItem.innerHTML = `<h2>${repo.name}</h2>`);
         unorderedRepoList.append(repoItem);
 
     }
 }
     
+unorderedRepoList.addEventListener("click", function(e){
+    if (e.target.matches("h2")){
+      const repoName = e.target.innerText;
+      //console.log(repoName);
+      repoInfo(repoName);
+    }
+})
+
+const repoInfo = async function(repoName){
+    const res1 = await fetch(`https://api.github.com/repos/${username}/${repoName}`);
+    const data = await res1.json();
+    console.log(data);
+
+}
