@@ -3,7 +3,9 @@ const overview = document.querySelector(".overview");
 const username = "sarahsyed";
 const unorderedRepoList = document.querySelector(".repo-list");
 const repos = document.querySelector(".repos");
-var repoData = document.querySelector(".repo-data");
+const repoData = document.querySelector(".repo-data");
+const btnBackToRepo = document.querySelector(".view-repos");
+const filterInput = document.querySelector(".filter-repos");
 
 const profile = async function(){
  const res = await fetch(`https://api.github.com/users/${username}`);
@@ -16,7 +18,6 @@ profile();
 
 const userData = function(data){
     const div = document.createElement("div");
-      
         div.classList.add("user-info");
         div.innerHTML = (`
         <figure>
@@ -79,6 +80,7 @@ const repoInfo = async function(repoName){
         const displayRepoInfo = async function(repoInfo, languages){
         repoData.innerHTML = "";
         repoData.classList.remove("hide");
+        btnBackToRepo.classList.remove("hide");
         repos.classList.add("hide");
         const divResult = document.createElement("div");
         divResult.innerHTML = `<h2>Name: ${repoInfo.name}</h2>
@@ -89,5 +91,18 @@ const repoInfo = async function(repoName){
         repoData.append(divResult);
         
     }
+
+    btnBackToRepo.addEventListener("click", function(){
+        repos.classList.remove("hide");
+        //Individaual repo data
+        repoData.classList.add("hide");
+        btnBackToRepo.classList.add("hide");
+    }
+)
+
+    filterInput.addEventListener("input", function(e){
+       const searchInput = e.target.value;
+
+    })
 
    
