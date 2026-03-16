@@ -50,6 +50,8 @@ const displayRepo = function(repos){
         repoItem.innerHTML = `<h2>${repo.name}</h2>`;
         //console.log(repoItem.innerHTML = `<h2>${repo.name}</h2>`);
         unorderedRepoList.append(repoItem);
+         filterInput.classList.remove("hide");
+
 
     }
 }
@@ -79,6 +81,7 @@ const repoInfo = async function(repoName){
 
         const displayRepoInfo = async function(repoInfo, languages){
         repoData.innerHTML = "";
+        //Displays view-repo/back to repo button
         repoData.classList.remove("hide");
         btnBackToRepo.classList.remove("hide");
         repos.classList.add("hide");
@@ -99,9 +102,23 @@ const repoInfo = async function(repoName){
         btnBackToRepo.classList.add("hide");
     }
 )
-
+    //Search textbox
     filterInput.addEventListener("input", function(e){
        const searchInput = e.target.value;
+      // console.log(searchInput);
+       const repos = document.querySelectorAll(".repo");
+       const searchVariable = searchInput.toLowerCase();
+        
+       for (var repo of repos){
+        console.log(repo);
+         var repoLowerCase = repo.innerText.toLowerCase();
+         console.log(repoLowerCase);
+         if (repoLowerCase.includes(searchVariable)){
+            repo.classList.remove("hide");
+         }else{
+            repo.classList.add("hide");
+         }
+       }
 
     })
 
